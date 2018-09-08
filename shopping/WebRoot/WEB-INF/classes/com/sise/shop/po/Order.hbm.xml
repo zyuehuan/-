@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE hibernate-mapping PUBLIC  
+          "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+  
+<hibernate-mapping package="com.sise.shop.po">  
+    <class name="Order" table="shop_order">  
+        <id name="oid" type="integer">  
+            <generator class="native" />  
+        </id>  
+
+        <property name="time" type="timestamp" not-null="true" />
+       	<property name="remark" type="string"/>
+       	<property name="totalPrices" type="float"/>
+       	<property name="countproduct" type="int"/>
+       	<many-to-one name="orderstate" class="OrderState" column="sid" fetch="join" lazy="false"></many-to-one>
+       	<many-to-one name="user" class="User" column="userid" fetch="join" lazy="false"></many-to-one>
+       	<set name="orderitems"  fetch="join" inverse="true" cascade="save-update,delete">
+   			<key column="orderid"></key>
+   			<one-to-many class="OrderItem"/>
+   		</set>
+    </class>  
+</hibernate-mapping>  
